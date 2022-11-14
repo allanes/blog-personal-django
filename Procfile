@@ -1,1 +1,1 @@
-web: gunicorn backend.wsgi 0.0.0.0:\$PORT --log-file 
+web: gunicorn backend.wsgi --log-file -
