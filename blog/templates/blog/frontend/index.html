@@ -1,0 +1,29 @@
+{% extends 'blog/frontend/base.html' %}
+  
+{% block title %}Pagina principal{% endblock %}
+
+{% block content %}
+
+  {% if user.is_authenticated %}
+        {% for group in user.groups.all %}
+            {% if group.name == 'Editores' %}
+                <p>
+                    <a href="{% url 'admin:blog_post_add' %}" class="edit">
+                        Escribir un nuevo post
+                    </a>
+                </p>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% for post in posts %}
+    <div>
+        <span class="date">{{ post.created|date:"SHORT_DATE_FORMAT" }}</span>
+        <h3>{{ post.title }}</h3>
+        <p>
+            {{ post.content|truncatewords:"20" }} 
+            <a href="{% url 'post_details' id=post.id %}">Leer más</a>
+        </p>
+    </div>
+    {% endfor %}
+
+{% endblock %}
